@@ -3,6 +3,7 @@ import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
   return (
+
     <footer className="bg-gray-900 dark:bg-blue-500 text-gray-200 py-6 px-4">
   <div className="ml-[20%] max-w-6xl flex flex-col md:flex-row justify-between items-center gap-4">
     <p className="text-sm">&copy; {new Date().getFullYear()} Bilal. All rights reserved.</p>
@@ -50,6 +51,8 @@ const Footer = () => {
     </div>
   </div>
 </footer>
+
+
 
   );
 };
