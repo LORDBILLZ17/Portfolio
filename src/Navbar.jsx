@@ -116,6 +116,11 @@ const Navbar = () => {
             Services
           </Link>
 
+          <Link to="/Myworks" onClick={() => setMenuOpen(false)} className="text-white text-lg">
+            <Briefcase className="mx-auto mb-1" size={24} />
+            Myworks
+          </Link>
+
           <button onClick={toggleDarkMode} className="text-xl text-white mt-2">
             {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
           </button>
