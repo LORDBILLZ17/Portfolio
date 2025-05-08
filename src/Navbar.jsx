@@ -117,7 +117,7 @@ const Navbar = () => {
           </Link>
 
           <Link to="/Myworks" onClick={() => setMenuOpen(false)} className="text-white text-lg">
-            <Briefcase className="mx-auto mb-1" size={24} />
+            <Laptop2 className="mx-auto mb-1" size={24} />
             Myworks
           </Link>
 
