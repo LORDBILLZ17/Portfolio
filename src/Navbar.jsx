@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar */}
+      
       <nav className="hidden md:flex fixed left-0 top-0 h-full w-20 bg-blue-900 dark:bg-gray-800 shadow-lg flex-col items-center py-10 space-y-10 z-50">
         <img
           src="/Logo.png"

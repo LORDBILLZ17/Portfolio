@@ -5,7 +5,7 @@ import Footer from "./Footer";
 const Workshop = () => {
   return (
     <section className="py-20 bg-gray-100 dark:bg-gray-900 h-screen" id="workshop ">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 ml-[20%]">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
           Recent Projects.
         </h2>
