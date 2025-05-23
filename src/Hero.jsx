@@ -24,7 +24,7 @@ const Hero = () => {
       <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full pt-40">
        
         {bubbles.map((bubble) => (
-          <motion.div
+           <motion.div
             key={bubble.id}
             className="absolute rounded-full bg-blue-300 dark:bg-blue-700 opacity-40"
             style={{
@@ -67,7 +67,7 @@ const Hero = () => {
             >
               I'm a passionate developer crafting beautiful web experiences. I
               specialize in creating elegant and efficient solutions that bring
-              ideas to life.
+              ideas to life go.
             </motion.p>
 
             <motion.button
