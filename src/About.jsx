@@ -30,7 +30,7 @@ const About = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-lime-400">About Me</h2>
           <p className="text-base md:text-lg text-lime-200">
-            Hi, I'm Bilal! I'm a passionate developer with a love for creating
+            Hi, I'm Lordbillz! I'm a passionate developer with a love for creating
             innovative web applications. With experience in frontend and backend
             technologies, I enjoy bringing creative ideas to life. My goal is to
             create user-centric solutions that are both functional and beautiful.
