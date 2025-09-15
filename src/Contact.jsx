@@ -30,15 +30,15 @@ const Contact = () => {
   };
 
   return (
-    <section className="min-h-[120vh] bg-gray-100 dark:bg-gray-900 py-24 px-4">
+    <section className="min-h-[120vh] bg-black py-24 px-4" style={{ marginLeft: '5rem', transition: 'margin-left 0.3s ease' }}>
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-md w-full"
+          className="bg-gray-900 p-10 rounded-2xl shadow-md w-full border border-lime-500/30"
         >
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+          <h2 className="text-3xl font-bold text-lime-400 mb-6">
             Send A Request
           </h2>
           <form ref={form} onSubmit={sendEmail} className="space-y-6">
@@ -48,14 +48,14 @@ const Contact = () => {
                 name="user_name"
                 placeholder="Name"
                 required
-                className="p-3 rounded-lg border border-gray-300 dark:border-gray-700 w-full bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="p-3 rounded-lg border border-lime-500/30 w-full bg-gray-800 text-lime-200 placeholder-lime-400/50"
               />
               <input
                 type="email"
                 name="user_email"
                 placeholder="Email"
                 required
-                className="p-3 rounded-lg border border-gray-300 dark:border-gray-700 w-full bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="p-3 rounded-lg border border-lime-500/30 w-full bg-gray-800 text-lime-200 placeholder-lime-400/50"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,13 +63,13 @@ const Contact = () => {
                 type="tel"
                 name="user_phone"
                 placeholder="Phone Number"
-                className="p-3 rounded-lg border border-gray-300 dark:border-gray-700 w-full bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="p-3 rounded-lg border border-lime-500/30 w-full bg-gray-800 text-lime-200 placeholder-lime-400/50"
               />
               <input
                 type="text"
                 name="user_country"
                 placeholder="Country"
-                className="p-3 rounded-lg border border-gray-300 dark:border-gray-700 w-full bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="p-3 rounded-lg border border-lime-500/30 w-full bg-gray-800 text-lime-200 placeholder-lime-400/50"
               />
             </div>
             <textarea
@@ -77,20 +77,18 @@ const Contact = () => {
               placeholder="Your Message"
               rows="6"
               required
-              className="p-3 rounded-lg border border-gray-300 dark:border-gray-700 w-full bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="p-3 rounded-lg border border-lime-500/30 w-full bg-gray-800 text-lime-200 placeholder-lime-400/50"
             />
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all"
+              className="w-full bg-lime-500 hover:bg-lime-600 text-black font-semibold py-3 px-6 rounded-xl transition-all"
             >
               Send Message
             </button>
           </form>
         </motion.div>
       </div>
-     
     </section>
   );
 };
-
 export default Contact;

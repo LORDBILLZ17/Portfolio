@@ -1,103 +1,366 @@
-import { motion } from "framer-motion";
-import Footer from "./Footer";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
-const generateBubbles = (count) => {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    size: Math.floor(Math.random() * 40) + 30,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    duration: 5 + Math.random() * 2,
-    delay: Math.random() * 5,
-  }));
+// Advanced particle system with multiple types
+const generateParticles = (count) => {
+  const particles = [];
+  const types = ['circle', 'square', 'triangle', 'line', 'blob'];
+  const colors = [
+    'rgba(173, 255, 47, 0.8)', // LemonGreen
+    'rgba(50, 205, 50, 0.6)', // LimeGreen
+    'rgba(152, 251, 152, 0.6)', // PaleGreen
+    'rgba(0, 255, 127, 0.6)' // SpringGreen
+  ];
+  
+  for (let i = 0; i < count; i++) {
+    const type = types[Math.floor(Math.random() * types.length)];
+    const size = Math.floor(Math.random() * 25) + 5;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    particles.push({
+      id: i,
+      type,
+      size,
+      color,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      duration: 20 + Math.random() * 20,
+      delay: Math.random() * 10,
+      rotation: Math.random() * 360,
+      blur: Math.random() * 5,
+    });
+  }
+  
+  return particles;
 };
 
-const bubbles = generateBubbles(10);
+const particles = generateParticles(20);
 
+const Hero = ({ sidebarHovered }) => {
+  const navigate = useNavigate();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const heroRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isHoveringImage, setIsHoveringImage] = useState(false);
+  
+  const textVariants = [
+    "A Full Stack Developer",
+    "A Web3 Enthusiast",
+    "A Projects Manager",
+    "A Database Manager",
+    "A Problem Solver"
+  ];
 
-const Hero = () => {
+  // Animated text cycling
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % textVariants.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
-  const Navigate = useNavigate ()
+  // Mouse parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 40;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 40;
+        setMousePosition({ x, y });
+      }
+    };
+    
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setScrollProgress(Math.min(scrollY / windowHeight, 1));
+    };
+    
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  // Text animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 40, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+  
+  // Dynamic background with multiple gradients and effects
+  const bgGradient = `
+    radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.9) 0%, transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(30, 30, 30, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(20, 20, 20, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(10, 10, 10, 0.6) 0%, transparent 50%),
+    linear-gradient(${135 + scrollProgress * 45}deg, 
+      rgba(0, 0, 0, 0.95) 0%, 
+      rgba(30, 30, 30, ${0.8 - scrollProgress * 0.3}) 40%, 
+      rgba(20, 20, 20, ${0.9 - scrollProgress * 0.4}) 100%
+    )
+  `;
+
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500">
-      <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-500 w-full pt-40">
-       
-        {bubbles.map((bubble) => (
-           <motion.div
-            key={bubble.id}
-            className="absolute rounded-full bg-blue-300 dark:bg-blue-700 opacity-40"
+    <motion.section 
+      ref={heroRef}
+      className="relative w-full min-h-screen overflow-hidden"
+      style={{
+        background: bgGradient,
+        // marginLeft: sidebarHovered ? '14rem' : '5rem',
+        transition: 'margin-left 0.3s ease'
+      }}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Animated grid pattern */}
+        <motion.div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `linear-gradient(rgba(173, 255, 47, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(173, 255, 47, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+            backgroundPosition: `${mousePosition.x * 0.1}px ${mousePosition.y * 0.1}px`,
+          }}
+        />
+        
+        {/* Advanced particles */}
+        {particles.map((particle) => (
+          <motion.div
+            key={`particle-${particle.id}`}
+            className={`absolute ${particle.type === 'circle' ? 'rounded-full' : ''} ${particle.type === 'triangle' ? 'transform rotate-0' : ''}`}
             style={{
-              width: bubble.size,
-              height: bubble.size,
-              top: bubble.top,
-              left: bubble.left,
+              width: particle.size,
+              height: particle.type === 'line' ? 2 : particle.size,
+              top: particle.top,
+              left: particle.left,
+              rotate: particle.rotation,
+              background: particle.color,
+              filter: `blur(${particle.blur}px)`,
+              clipPath: particle.type === 'triangle' ? 'polygon(50% 0%, 0% 100%, 100% 100%)' : 'none',
             }}
             animate={{
-              y: [0, -20, 0, 20, 0],
-              x: [0, 10, -10, 5, 0],
+              y: [0, -100, 0],
+              x: [0, 50, 0],
+              rotate: particle.rotation + 360,
+              scale: [0, 1, 0],
             }}
             transition={{
-              duration: bubble.duration,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: bubble.delay,
+              delay: particle.delay,
               ease: "easeInOut",
             }}
           />
         ))}
+      </div>
 
-       
-        <div className="max-w-screen-xl mx-auto flex flex-col-reverse md:flex-row justify-center items-center px-6  md:px-20 py-16 md:py-0 space-y-6 md:space-y-0 h-full ">
-        
-          <div className="flex flex-col space-y-4 md:space-y-6 text-center md:text-left md:w-1/2 mt-[20px] md:mt-0 md:order-1 ">
-            <motion.h1
-              initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-              className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-200"
-            >
-              Hi, I'm Bilal.A 👋
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-lg md:text-xl text-gray-900 dark:text-gray-200 max-w-xl mx-auto md:mx-0"
-            >
-              I'm a passionate developer crafting beautiful web experiences. I
-              specialize in creating elegant and efficient solutions that bring
-              ideas to life go.
-            </motion.p>
-
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => Navigate ("/MyWorks")}
-              className="bg-blue-900 dark:bg-blue-500 text-white px-8 py-4 rounded-2xl shadow-lg text-lg w-fit mx-auto md:mx-0 transform transition-transform duration-300"
-            >
-              View My Works
-            </motion.button>
-          </div>
-
+      {/* Main content */}
+      <div className="relative min-h-screen  flex items-center justify-center px-4 md:px-24 py-18 md:py-0">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white dark:border-blue-300 shadow-2xl mb-6 md:mb-0 md:order-2"
+          {/* Text content */}
+          <motion.div 
+            className="text-center lg:text-left space-y-8 md:space-y-10"
+            variants={containerVariants}
+            style={{
+              x: mousePosition.x * -0.5,
+              y: mousePosition.y * -0.5,
+            }}
           >
-            <img
-              src="/Logo.png"
-              alt="Bilal"
-              className="object-cover w-full h-full"
-            />
+            <motion.div variants={itemVariants} className="space-y-4">
+              <motion.p 
+                className="text-lg md:text-xl font-medium text-lime-300 tracking-wider"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+              >
+                Welcome to My Digital Universe
+              </motion.p>
+              <motion.h1
+                className="text-6xl md:text-8xl font-bold text-white leading-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-green-400">Lord.B</span>
+              </motion.h1>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="space-y-6">
+              <div className="h-12 overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.h2 
+                    key={currentTextIndex}
+                    className="text-2xl md:text-4xl font-semibold text-lime-400"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {textVariants[currentTextIndex]}
+                  </motion.h2>
+                </AnimatePresence>
+              </div>
+              <motion.p
+                className="text-xl md:text-2xl text-lime-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+              >
+                I craft immersive digital experiences that blend cutting-edge technology with 
+                artistic vision. From concept to deployment, I transform ideas into exceptional 
+                web solutions that captivate audiences and deliver measurable results.
+              </motion.p>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start"
+            >
+              <motion.button
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 15px 30px -10px rgba(173, 255, 47, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/MyWorks")}
+                className="relative bg-gradient-to-r from-lime-500 to-green-600 text-black px-10 py-5 rounded-2xl font-bold text-xl shadow-2xl overflow-hidden group"
+              >
+                <span className="relative z-10">Explore My Work</span>
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 15px 30px -10px rgba(173, 255, 47, 0.2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/Contact")}
+                className="relative border-2 border-lime-400 text-lime-400 px-10 py-5 rounded-2xl font-bold text-xl backdrop-blur-xl bg-black/30 group overflow-hidden"
+              >
+                <span className="relative z-10">Start a Project</span>
+              </motion.button>
+            </motion.div>
+            
+            {/* Stats bar */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-wrap gap-6 justify-center lg:justify-start mt-8"
+            >
+              {[
+                { value: "50+", label: "Projects" },
+                { value: "5+", label: "Years Exp" },
+                { value: "100%", label: "Satisfaction" },
+              ].map((stat, index) => (
+                <motion.div 
+                  key={index}
+                  className="text-center p-4 rounded-2xl bg-lime-500/10 backdrop-blur-sm border border-lime-500/20"
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                >
+                  <div className="text-2xl font-bold text-lime-400">{stat.value}</div>
+                  <div className="text-lime-300 text-sm">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Image content with advanced effects */}
+          <motion.div 
+            className="relative flex justify-center lg:justify-end"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            style={{
+              x: mousePosition.x * 0.5,
+              y: mousePosition.y * 0.5,
+            }}
+            onHoverStart={() => setIsHoveringImage(true)}
+            onHoverEnd={() => setIsHoveringImage(false)}
+          >
+            <div className="relative">
+              <motion.div 
+                className="w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden border-4 border-lime-400/30 shadow-2xl relative"
+                whileHover={{ 
+                  rotate: isHoveringImage ? 5 : 0,
+                  transition: { duration: 0.5 }
+                }}
+              >
+                <img
+                  src="/Logo.png"
+                  alt="Bilal - Full Stack Developer & Projects Manager"
+                  className="object-cover w-full h-full"
+                />
+                
+                {/* Hover effect overlay */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-t from-lime-500/30 to-green-500/30 opacity-0"
+                  animate={{ opacity: isHoveringImage ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.div>
+              
+              {/* Floating elements around image */}
+              <motion.div 
+                className="absolute -top-8 -left-8 w-28 h-28 rounded-full bg-lime-400/30 mix-blend-overlay blur-2xl"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  x: [0, 10, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                }}
+              />
+              <motion.div 
+                className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-green-400/30 mix-blend-overlay blur-2xl"
+                animate={{
+                  scale: [1.3, 1, 1.3],
+                  y: [0, 15, 0],
+                }}
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  delay: 1,
+                }}
+              />
+            </div>
           </motion.div>
         </div>
+        
+      
+       
+      
       </div>
-     
-    </section>
+    </motion.section>
   );
 };
+// eslint-disable-next-line no-undef
 
 export default Hero;

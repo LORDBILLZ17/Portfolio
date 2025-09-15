@@ -8,7 +8,7 @@ import Contact from './Contact';
 import MyWorks from './MyWorks';
 import Footer from './Footer';
 
-const App = () => {
+const App = ({ sidebarHovered = '5rem' })=> {
   return (
     
       <div className="flex min-h-screen">
@@ -21,7 +21,7 @@ const App = () => {
             <Route path='/Contact' element={<Contact />}></Route>
             <Route path='/MyWorks' element={<MyWorks />}></Route>
           </Routes>
-            <Footer />
+            <Footer  sidebarWidth={sidebarHovered ? '' : '5rem'} />
         </div>
       </div>
   
