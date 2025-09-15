@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-medium {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-fast {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit1 {
+  0% { transform: translateX(-50%) rotate(0deg) translateY(-96px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateY(-96px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: translateX(-50%) rotate(0deg) translateY(-76px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateY(-76px) rotate(-360deg); }
+}
+
+@keyframes orbit3 {
+  0% { transform: translateX(-50%) rotate(0deg) translateY(-56px) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(360deg) translateY(-56px) rotate(-360deg); }
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  70% { width: 85%; }
+  90% { width: 95%; }
+  100% { width: 100%; }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-spin-medium {
+  animation: spin-medium 6s linear infinite;
+}
+
+.animate-spin-fast {
+  animation: spin-fast 4s linear infinite;
+}
+
+.reverse-spin {
+  animation-direction: reverse;
+}
+
+.animate-orbit1 {
+  animation: orbit1 2s linear infinite;
+}
+
+.animate-orbit2 {
+  animation: orbit2 2.5s linear infinite;
+}
+
+.animate-orbit3 {
+  animation: orbit3 3s linear infinite;
+}
+
+.animate-progress {
+  animation: progress 4s ease-in-out infinite;
+}
+
+/* Page scrollbar styling for Chrome/Edge/Safari */
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #f9fafb;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
+  border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #a3a3a3 #f9fafb;
+}
+
+/* Add this at the top of your index.css */

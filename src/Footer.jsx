@@ -15,7 +15,7 @@ const Footer = ({ sidebarWidth = '5rem' }) => {
     },
     {
       icon: <MdEmail />,
-      href: "mailto:bilalmujeeb2008@gmail.com",
+      href: "mailto:lordb1920@gmail.com",
       label: "Email",
       color: "hover:text-lime-400",
       title: "Send me an email"
@@ -36,18 +36,12 @@ const Footer = ({ sidebarWidth = '5rem' }) => {
     },
     {
       icon: <FaTwitter />,
-      href: "https://twitter.com",
+      href: "https://x.com/LORDBILLZ1920",
       label: "Twitter",
       color: "hover:text-lime-400",
       title: "Follow me on Twitter"
     },
-    {
-      icon: <FaDiscord />,
-      href: "https://discord.com",
-      label: "Discord",
-      color: "hover:text-lime-400",
-      title: "Join me on Discord"
-    }
+
   ];
 
   return (
@@ -60,7 +54,7 @@ const Footer = ({ sidebarWidth = '5rem' }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          &copy; {currentYear} Bilal.A | Crafting Digital Excellence
+          &copy; {currentYear} Lord.B| Crafting Digital Excellence
         </motion.p>
         
         {/* Social links with enhanced styling */}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Footer from "./Footer";
 
 // Advanced particle system with multiple types
 const generateParticles = (count) => {
@@ -16,7 +15,7 @@ const generateParticles = (count) => {
   
   for (let i = 0; i < count; i++) {
     const type = types[Math.floor(Math.random() * types.length)];
-    const size = Math.floor(Math.random() * 25) + 5;
+    const size = Math.floor(Math.random() * 25) + 6;
     const color = colors[Math.floor(Math.random() * colors.length)];
     
     particles.push({
@@ -38,7 +37,7 @@ const generateParticles = (count) => {
 
 const particles = generateParticles(20);
 
-const Hero = ({ sidebarHovered }) => {
+const Hero = () => {
   const navigate = useNavigate();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
@@ -129,11 +128,9 @@ const Hero = ({ sidebarHovered }) => {
   return (
     <motion.section 
       ref={heroRef}
-      className="relative w-full min-h-screen overflow-hidden"
+      className="relative w-full min-h-screen overflow-hidden lg:pl-20 lg:mt-0 mt-16" // Added margin for sidebar and navbar
       style={{
         background: bgGradient,
-        // marginLeft: sidebarHovered ? '14rem' : '5rem',
-        transition: 'margin-left 0.3s ease'
       }}
       initial="hidden"
       animate="visible"
@@ -182,12 +179,12 @@ const Hero = ({ sidebarHovered }) => {
       </div>
 
       {/* Main content */}
-      <div className="relative min-h-screen  flex items-center justify-center px-4 md:px-24 py-18 md:py-0">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="relative min-h-screen flex items-center justify-center px-4 md:px-8 py-16 md:py-0">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
           
           {/* Text content */}
           <motion.div 
-            className="text-center lg:text-left space-y-8 md:space-y-10"
+            className="text-center lg:text-left space-y-6 md:space-y-8"
             variants={containerVariants}
             style={{
               x: mousePosition.x * -0.5,
@@ -204,7 +201,7 @@ const Hero = ({ sidebarHovered }) => {
                 Welcome to My Digital Universe
               </motion.p>
               <motion.h1
-                className="text-6xl md:text-8xl font-bold text-white leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -213,12 +210,12 @@ const Hero = ({ sidebarHovered }) => {
               </motion.h1>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-6">
-              <div className="h-12 overflow-hidden">
+            <motion.div variants={itemVariants} className="space-y-4 md:space-y-6">
+              <div className="h-12 md:h-16 overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.h2 
                     key={currentTextIndex}
-                    className="text-2xl md:text-4xl font-semibold text-lime-400"
+                    className="text-xl sm:text-2xl md:text-3xl font-semibold text-lime-400"
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -20, opacity: 0 }}
@@ -229,7 +226,7 @@ const Hero = ({ sidebarHovered }) => {
                 </AnimatePresence>
               </div>
               <motion.p
-                className="text-xl md:text-2xl text-lime-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                className="text-lg md:text-xl text-lime-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
@@ -242,7 +239,7 @@ const Hero = ({ sidebarHovered }) => {
 
             <motion.div 
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center lg:justify-start"
             >
               <motion.button
                 whileHover={{ 
@@ -251,9 +248,9 @@ const Hero = ({ sidebarHovered }) => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/MyWorks")}
-                className="relative bg-gradient-to-r from-lime-500 to-green-600 text-black px-10 py-5 rounded-2xl font-bold text-xl shadow-2xl overflow-hidden group"
+                className="relative bg-gradient-to-r from-lime-500 to-green-600 text-black px-6 py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl shadow-xl md:shadow-2xl overflow-hidden"
               >
-                <span className="relative z-10">Explore My Work</span>
+                <span className="relative z-10">Explore My Works</span>
               </motion.button>
               
               <motion.button
@@ -263,7 +260,7 @@ const Hero = ({ sidebarHovered }) => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/Contact")}
-                className="relative border-2 border-lime-400 text-lime-400 px-10 py-5 rounded-2xl font-bold text-xl backdrop-blur-xl bg-black/30 group overflow-hidden"
+                className="relative border-2 border-lime-400 text-lime-400 px-6 py-3 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-bold text-lg md:text-xl backdrop-blur-xl bg-black/30"
               >
                 <span className="relative z-10">Start a Project</span>
               </motion.button>
@@ -272,20 +269,20 @@ const Hero = ({ sidebarHovered }) => {
             {/* Stats bar */}
             <motion.div 
               variants={itemVariants}
-              className="flex flex-wrap gap-6 justify-center lg:justify-start mt-8"
+              className="flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start mt-6 md:mt-8"
             >
               {[
-                { value: "50+", label: "Projects" },
-                { value: "5+", label: "Years Exp" },
-                { value: "100%", label: "Satisfaction" },
+                { value: "40+", label: "Projects" },
+                { value: "3+", label: "Years Exp" },
+                { value: "99.99%", label: "Satisfaction" },
               ].map((stat, index) => (
                 <motion.div 
                   key={index}
-                  className="text-center p-4 rounded-2xl bg-lime-500/10 backdrop-blur-sm border border-lime-500/20"
+                  className="text-center p-3 md:p-4 rounded-xl md:rounded-2xl bg-lime-500/10 backdrop-blur-sm border border-lime-500/20"
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
-                  <div className="text-2xl font-bold text-lime-400">{stat.value}</div>
-                  <div className="text-lime-300 text-sm">{stat.label}</div>
+                  <div className="text-xl md:text-2xl font-bold text-lime-400">{stat.value}</div>
+                  <div className="text-lime-300 text-xs md:text-sm">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -293,7 +290,7 @@ const Hero = ({ sidebarHovered }) => {
 
           {/* Image content with advanced effects */}
           <motion.div 
-            className="relative flex justify-center lg:justify-end"
+            className="relative flex justify-center lg:justify-end mt-8 lg:mt-0"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -306,7 +303,7 @@ const Hero = ({ sidebarHovered }) => {
           >
             <div className="relative">
               <motion.div 
-                className="w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden border-4 border-lime-400/30 shadow-2xl relative"
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-2xl md:rounded-3xl overflow-hidden border-4 border-lime-400/30 shadow-xl md:shadow-2xl relative"
                 whileHover={{ 
                   rotate: isHoveringImage ? 5 : 0,
                   transition: { duration: 0.5 }
@@ -314,7 +311,7 @@ const Hero = ({ sidebarHovered }) => {
               >
                 <img
                   src="/Logo.png"
-                  alt="Bilal - Full Stack Developer & Projects Manager"
+                  alt="Lord.B - Full Stack Developer & Projects Manager"
                   className="object-cover w-full h-full"
                 />
                 
@@ -328,7 +325,7 @@ const Hero = ({ sidebarHovered }) => {
               
               {/* Floating elements around image */}
               <motion.div 
-                className="absolute -top-8 -left-8 w-28 h-28 rounded-full bg-lime-400/30 mix-blend-overlay blur-2xl"
+                className="absolute -top-4 -left-4 w-16 h-16 md:-top-6 md:-left-6 md:w-24 md:h-24 rounded-full bg-lime-400/30 mix-blend-overlay blur-xl md:blur-2xl"
                 animate={{
                   scale: [1, 1.3, 1],
                   x: [0, 10, 0],
@@ -339,7 +336,7 @@ const Hero = ({ sidebarHovered }) => {
                 }}
               />
               <motion.div 
-                className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-green-400/30 mix-blend-overlay blur-2xl"
+                className="absolute -bottom-4 -right-4 w-14 h-14 md:-bottom-6 md:-right-6 md:w-20 md:h-20 rounded-full bg-green-400/30 mix-blend-overlay blur-xl md:blur-2xl"
                 animate={{
                   scale: [1.3, 1, 1.3],
                   y: [0, 15, 0],
@@ -353,14 +350,9 @@ const Hero = ({ sidebarHovered }) => {
             </div>
           </motion.div>
         </div>
-        
-      
-       
-      
       </div>
     </motion.section>
   );
 };
-// eslint-disable-next-line no-undef
 
 export default Hero;

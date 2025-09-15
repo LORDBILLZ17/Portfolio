@@ -1,61 +1,58 @@
 import { motion } from "framer-motion";
 import { projects } from "./Data";
-import Footer from "./Footer";
 
 const Workshop = () => {
-  
-
   return (
-    <section className="pt-24 pb-20 bg-black" id="workshop" style={{ marginLeft: '5rem', transition: 'margin-left 0.3s ease' }}>
-      <div className="container px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-lime-400">
-          Recent Projects.
+    <section className="pt-24 pb-20 bg-black lg:pl-20" id="workshop">
+      <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-lime-400">
+          Recent Projects
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projects.map((projects, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          {projects.map((project, index) => (
             <motion.div
-              key={projects.id}
-              className="bg-gray-900 p-6 rounded-2xl shadow-lg flex flex-col border border-lime-500/20"
+              key={project.id}
+              className="bg-gray-900 p-4 sm:p-6 rounded-2xl shadow-lg flex flex-col border border-lime-500/20"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <img
-                src={projects.image}
-                alt={projects.title}
-                className="rounded-lg mb-4"
+                src={project.image}
+                alt={project.title}
+                className="rounded-lg mb-3 sm:mb-4 w-full h-48 object-cover"
               />
-              <h3 className="text-2xl font-semibold mb-2 text-lime-400">
-                {projects.title}
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-lime-400">
+                {project.title}
               </h3>
-              <p className="text-lime-200 mb-4">
-                {projects.description}
+              <p className="text-lime-200 text-sm sm:text-base mb-3 sm:mb-4">
+                {project.description}
               </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {projects.techStack.map((tech, idx) => (
+              <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
+                {project.techStack.map((tech, idx) => (
                   <span
                     key={idx}
-                    className="bg-lime-900 text-lime-400 text-sm font-medium px-2.5 py-0.5 rounded"
+                    className="bg-lime-900 text-lime-400 text-xs sm:text-sm font-medium px-2 py-1 rounded"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              <div className="mt-auto flex space-x-4">
+              <div className="mt-auto flex space-x-3 sm:space-x-4">
                 <a
-                  href={projects.liveLink}
+                  href={project.liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lime-400 hover:underline"
+                  className="text-lime-400 hover:text-lime-300 text-sm sm:text-base transition-colors"
                 >
                   Live Demo
                 </a>
                 <a
-                  href={projects.repoLink}
+                  href={project.repoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lime-400 hover:underline"
+                  className="text-lime-400 hover:text-lime-300 text-sm sm:text-base transition-colors"
                 >
                   GitHub
                 </a>
@@ -67,6 +64,5 @@ const Workshop = () => {
     </section>
   );
 };
-
 
 export default Workshop;
