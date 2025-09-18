@@ -48,9 +48,10 @@ const Hero = () => {
   const textVariants = [
     "A Full Stack Developer",
     "A Web3 Enthusiast",
-    "A Projects Manager",
+    "A Project Manager",
     "A Database Manager",
-    "A Problem Solver"
+    "A Problem Solver",
+    "A Graphic Designer"
   ];
 
   // Animated text cycling

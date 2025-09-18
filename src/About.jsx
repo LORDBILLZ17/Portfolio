@@ -48,11 +48,12 @@ const About = () => {
             {[
               { skill: "JavaScript", percentage: "90%" },
               { skill: "Tailwind", percentage: "95%" },
-              { skill: "Django", percentage: "95%" },
+              { skill: "Django", percentage: "90%" },
               { skill: "Python", percentage: "90%" },
               { skill: "HTML", percentage: "95%" },
               { skill: "UI/UX", percentage: "90%" },
               { skill: "Java", percentage: "85%" },
+              { skill: "Graphics Design", percentage: "95%" },             
             ].map((item, index) => (
               <div key={index}>
                 <div className="flex items-center justify-between text-lime-200 text-sm md:text-base">
