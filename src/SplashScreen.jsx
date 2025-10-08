@@ -18,7 +18,7 @@ const SplashScreen = () => {
     <div className="fixed inset-0 bg-black flex flex-col justify-center items-center z-50">
       <div className="text-center mb-10">
         <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-lime-400 to-green-500 bg-clip-text text-transparent">
-          LODBILLZ
+          LORDBILLZ
         </h1>
         <p className="text-gray-500 text-lg md:text-xl tracking-widest mt-2 uppercase">
           Your All Tech Developer
