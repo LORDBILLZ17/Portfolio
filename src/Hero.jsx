@@ -61,7 +61,7 @@ const Hero = () => {
     
     // Path to your resume file in the public folder
     // Make sure to place your resume.pdf file in the public folder
-    link.href = './Alaaya_Bilal_Resume(1).docx';
+    link.href = 'public/Alaaya_Bilal_Resume (1).docx';
     
     // Set the download attribute with the desired file name
     link.download = 'Lord_B_Resume.pdf';
