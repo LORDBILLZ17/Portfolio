@@ -64,7 +64,7 @@ const Hero = () => {
     link.href = 'public/Alaaya_Bilal_Resume (1).docx';
     
     // Set the download attribute with the desired file name
-    link.download = 'Lord_B_Resume.pdf';
+    link.download = 'Lord_B_Resume.docx';
     
     // Append to body, click, and remove
     document.body.appendChild(link);
